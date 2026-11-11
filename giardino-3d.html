@@ -2,60 +2,14 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#152620">
-  <meta name="description" content="Esplora il giardino virtuale tridimensionale di FIORITURA: fiori-personaggio, sentieri e movimento del telefono.">
-  <title>Entra nel Giardino 3D — FIORITURA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="refresh" content="0; url=./giardino.html">
+  <meta name="theme-color" content="#123d5a">
+  <title>Il giardino illustrato — FIORITURA</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/garden-3d.css">
-  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js"}}</script>
-  <script type="module" src="./js/garden-3d.js"></script>
-  <script>
-    window.setTimeout(() => {
-      const loading=document.getElementById('garden3dLoading');
-      if(loading && !loading.hidden && !loading.querySelector('a')) {
-        loading.textContent='Il 3D non si è caricato. ';
-        const a=document.createElement('a');a.href='./giardino.html';a.textContent='Apri il giardino illustrato →';
-        a.style='color:#d6ed8d;display:block;margin-top:12px';loading.append(a);
-      }
-    },10000);
-  </script>
+  <link rel="canonical" href="./giardino.html">
+  <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#123d5a;color:#fff9ee;font:18px/1.6 system-ui,sans-serif;text-align:center}main{max-width:34rem;padding:2rem}a{color:#fff9ee;font-weight:800}p{opacity:.82}</style>
 </head>
-<body class="garden-body garden-3d-body">
-  <a class="skip-link" href="#main">Vai al giardino</a>
-  <header class="garden-header">
-    <a class="brand" href="./"><img src="./assets/mark.svg" alt="" width="23" height="23"><span>fioritura<span class="brand-dot">.</span></span></a>
-    <a href="./giardino.html">← Torna alla versione 2D</a>
-  </header>
-  <main id="main">
-    <section class="garden-3d-intro">
-      <span class="garden-demo-tag">PROTOTIPO · GIARDINO TRIDIMENSIONALE</span>
-      <h1>Entra nel <em>giardino.</em></h1>
-      <p>Un sentiero, la luce della sera e fiori con un carattere tutto loro. Esplora con un dito, avanza nel paesaggio oppure inclina lo smartphone per guardarti intorno.</p>
-    </section>
-    <section class="garden-3d-experience" aria-label="Esplorazione tridimensionale di FIORITURA">
-      <div id="garden3dViewport" class="garden-3d-viewport" aria-label="Vista 3D, trascina per ruotare, tocca un fiore per scoprirlo. Elenco accessibile sotto la scena.">
-        <div id="garden3dLoading" class="garden-3d-loading" role="status">Il giardino sta sbocciando...</div>
-        <div class="garden-3d-overlay"><span class="garden-3d-live"><span aria-hidden="true"></span> Esempio 3D, non partecipanti reali</span><span id="garden3dCount">28 fiori</span></div>
-        <div class="garden-3d-instructions">Trascina per guardare · pizzica per zoom · tocca un fiore</div>
-      </div>
-      <div class="garden-3d-toolbar" role="group" aria-label="Controlli 3D">
-        <button type="button" id="garden3dTilt" aria-pressed="false">Muovi il telefono</button>
-        <button type="button" id="garden3dWalk">Avanza nel giardino →</button>
-        <button type="button" id="garden3dBack">← Torna indietro</button>
-        <button type="button" id="garden3dRecenter">Centra la vista</button>
-        <button type="button" id="garden3dLighting" aria-pressed="false">Visione diurna</button>
-      </div>
-      <p id="garden3dSensorStatus" class="garden-3d-sensor-status" role="status" aria-live="polite">Il movimento è facoltativo: nessuna fotocamera, microfono o geolocalizzazione viene utilizzata.</p>
-    </section>
-    <aside id="garden3dSelected" class="garden-3d-selected" hidden aria-live="polite"><span class="garden-3d-selected-icon" aria-hidden="true">✿</span><div><span>INCONTRA UN FIORE</span><h2 id="garden3dSelectedName">Fiore</h2><p id="garden3dSelectedText">Un fiore del giardino.</p></div><button type="button" id="garden3dCloseSelection" aria-label="Chiudi la scheda del fiore">×</button></aside>
-    <section class="garden-3d-under">
-      <article class="garden-3d-plant"><p class="garden-3d-small-label">PROVA SENZA SELFIE</p><h2>Anche tu puoi <em>sbocciare.</em></h2><p>Dai un nome e un colore al tuo fiore e fallo apparire in 3D. Questa prova non invia foto né dati personali: resta soltanto sul dispositivo.</p><form id="garden3dPlantForm" class="garden-3d-form"><label for="garden3dName">Nome del fiore</label><input id="garden3dName" name="name" required minlength="2" maxlength="24" placeholder="Es. Luna" autocomplete="off"><label for="garden3dPalette">Colore dei petali</label><select id="garden3dPalette" name="palette"><option value="pink">Rosa e corallo</option><option value="gold">Sole e arancio</option><option value="violet">Lilla e azzurro</option></select><button type="submit">Fallo fiorire nel giardino ↗</button></form><p id="garden3dPlantStatus" class="garden-3d-form-status" role="status"></p></article>
-      <article class="garden-3d-collection"><p class="garden-3d-small-label">ESPLORA ANCHE SENZA 3D</p><h2>Conosci chi <em>abita qui.</em></h2><p>Seleziona un fiore dall'elenco per scoprirlo anche con navigazione assistita e tastiera.</p><div id="garden3dFlowerList" class="garden-3d-flower-list" role="group" aria-label="Elenco accessibile dei fiori"></div></article>
-    </section>
-    <div class="garden-3d-disclaimer"><p><strong>Prototipo artistico.</strong> I personaggi non rappresentano visitatori reali. Il giardino collettivo sarà attivato solo dopo approvazioni, test tecnici, autorizzazioni e verifica della privacy.</p><a href="./esperienza.html">Come funzionerà FIORITURA →</a></div>
-  </main>
-  <footer class="garden-footer"><span>FIORITURA · Una proposta di Culture Digitali Srl</span><a href="./privacy.html">Privacy e trasparenza</a></footer>
-</body>
+<body><main><h1>Il giardino è diventato illustrato.</h1><p>Stai per essere accompagnato nella nuova esperienza 2D, più leggera e accessibile.</p><a href="./giardino.html">Apri il giardino FIORITURA →</a></main></body>
 </html>

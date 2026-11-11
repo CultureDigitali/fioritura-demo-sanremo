@@ -2,7 +2,6 @@ name: Verify published FIORITURA Pages
 on:
   push:
     branches: [main]
-    paths: [".github/workflows/smoke.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,10 +14,24 @@ jobs:
         run: |
           set -euxo pipefail
           BASE="https://culturedigitali.github.io/fioritura-demo-sanremo"
-          curl -fLsS --retry 12 --retry-delay 8 --retry-all-errors --max-time 15 "$BASE/" -o /tmp/home.html
-          grep -qi 'fioritura' /tmp/home.html
-          curl -fLsS --retry 8 --retry-delay 6 --retry-all-errors --max-time 15 "$BASE/giardino-3d.html" -o /tmp/garden.html
-          grep -qi 'garden3dViewport' /tmp/garden.html
-          curl -fLsS --retry 8 --retry-delay 6 --retry-all-errors --max-time 15 "$BASE/js/garden-3d.js" -o /tmp/garden.js
-          test "$(wc -c < /tmp/garden.js)" -gt 20000
-          echo "PUBLIC HTTPS VERIFIED: $BASE/giardino-3d.html"
+          # Pages deployment is independent of this workflow; wait for the new HTML.
+          ready=0
+          for attempt in $(seq 1 18); do
+            if curl -fLsS --max-time 15 "$BASE/?verify=$GITHUB_SHA" -o /tmp/home.html &&
+               curl -fLsS --max-time 15 "$BASE/giardino-3d.html?verify=$GITHUB_SHA" -o /tmp/legacy.html &&
+               grep -q 'hero-riviera' /tmp/home.html &&
+               grep -qi 'http-equiv="refresh"' /tmp/legacy.html &&
+               ! grep -qi 'three\|importmap\|garden3dViewport' /tmp/legacy.html; then
+              ready=1
+              break
+            fi
+            sleep 8
+          done
+          test "$ready" -eq 1
+          curl -fLsS --max-time 20 "$BASE/giardino.html?verify=$GITHUB_SHA" -o /tmp/garden.html
+          grep -q 'gardenCanvas' /tmp/garden.html
+          ! grep -q 'href="./giardino-3d.html"' /tmp/home.html /tmp/garden.html
+          curl -fLsS --max-time 20 "$BASE/js/garden-data.js?verify=$GITHUB_SHA" -o /tmp/data.js
+          grep -q 'normalizeLocalFlower' /tmp/data.js
+          test "$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/admin.html")" = "404"
+          echo "PUBLIC HTTPS VERIFIED: $BASE/giardino.html"
