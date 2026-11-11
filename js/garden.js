@@ -112,12 +112,12 @@ async function initGarden(c) {
     const src = featured.get(f.id) || f.artworkUrl;
     if (src) { const image = document.createElement('img'); image.src = src; image.alt = ''; image.loading = 'lazy'; art.replaceChildren(image); }
     else art.innerHTML = flowerSvg(f);
-    detail.classList.add('is-open'); detail.focus({ preventScroll: true });
+    detail.hidden = false; detail.classList.add('is-open'); detail.focus({ preventScroll: true });
     if (scroll) { const rect = c.getBoundingClientRect(); if (rect.top < 0 || rect.bottom > innerHeight) c.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' }); }
     const point = worldToScreen(f.x, f.y); if (point.x < 70 || point.x > screen.w - 70 || point.y < 60 || point.y > screen.h - 60) { camera.x = screen.w / 2 - f.x * camera.scale; camera.y = screen.h / 2 - f.y * camera.scale; }
     if (history?.replaceState) history.replaceState(null, '', `${location.pathname}?fiore=${encodeURIComponent(f.id)}`); refresh();
   }
-  function closeFlower(restoreFocus = true) { selected = null; detail.classList.remove('is-open'); history?.replaceState?.(null, '', location.pathname); if (restoreFocus && previousFocus?.isConnected) previousFocus.focus({ preventScroll: true }); previousFocus = null; refresh(); }
+  function closeFlower(restoreFocus = true) { selected = null; detail.classList.remove('is-open'); detail.hidden = true; history?.replaceState?.(null, '', location.pathname); if (restoreFocus && previousFocus?.isConnected) previousFocus.focus({ preventScroll: true }); previousFocus = null; refresh(); }
   $('#closeDetail').addEventListener('click', closeFlower);
 
   function updateList() {
@@ -162,7 +162,16 @@ async function initGarden(c) {
     applyFilters(); syncPersonalControls(); fit(); focusFlower(flower); message.textContent = storageAvailable ? 'Il fiore è sbocciato e resta solo su questo dispositivo.' : 'Il fiore è visibile ora, ma il browser non consente di conservarlo.';
     planter.hidden = true; plantToggle.setAttribute('aria-expanded', 'false'); c.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
   });
-  removeButton.addEventListener('click', () => { all = all.filter((item) => item.id !== 'personal-demo'); personalDemo = null; forceVisibleId = ''; try { localStorage.removeItem(LOCAL_FLOWER_KEY); } catch { storageAvailable = false; } closeFlower(); applyFilters(); syncPersonalControls(); message.textContent = 'Il fiore locale è stato rimosso da questo dispositivo.'; });
+  removeButton.addEventListener('click', () => {
+    try { localStorage.removeItem(LOCAL_FLOWER_KEY); }
+    catch {
+      storageAvailable = false;
+      message.textContent = 'Il browser non consente di cancellare il fiore salvato. Non è stato rimosso: puoi riprovare o cancellare i dati di questo sito dalle impostazioni del browser.';
+      return;
+    }
+    all = all.filter((item) => item.id !== 'personal-demo'); personalDemo = null; forceVisibleId = '';
+    closeFlower(); applyFilters(); syncPersonalControls(); message.textContent = 'Il fiore locale è stato rimosso da questo dispositivo.';
+  });
 
   // Initialize the first frame only after visibility and event state are ready.
   // Reduced-motion mode paints synchronously rather than waiting for an animation frame.
