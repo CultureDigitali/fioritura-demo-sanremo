@@ -41,7 +41,7 @@ async function initGarden(c) {
   const statusLine = $('#gardenStatusLine'), statusTag = $('#dataStatus'), flowerCount = $('#flowerCount');
   const empty = $('#emptyGarden'), search = $('#flowerSearch'), removeButton = $('#removePersonalFlower');
   const planter = $('#previewPlanter'), plantToggle = $('#openPlanter'), message = $('#plantMessage');
-  let all = createDemoFlowers(), personalDemo = null, storageAvailable = true;
+  let all = createDemoFlowers(), personalDemo = null, storageAvailable = true, removalPending = false;
   try { personalDemo = parseLocalFlower(localStorage.getItem(LOCAL_FLOWER_KEY)); } catch { storageAvailable = false; }
   if (personalDemo) all.push(personalDemo);
 
@@ -148,7 +148,7 @@ async function initGarden(c) {
   c.addEventListener('wheel', (event) => { event.preventDefault(); const p = point(event); zoom(event.deltaY < 0 ? 1.12 : .89, p.x, p.y); }, { passive: false });
   c.addEventListener('keydown', (event) => { let handled = true; switch (event.key) { case 'ArrowLeft': camera.x += 42; break; case 'ArrowRight': camera.x -= 42; break; case 'ArrowUp': camera.y += 42; break; case 'ArrowDown': camera.y -= 42; break; case '+': case '=': zoom(1.2); break; case '-': zoom(.84); break; case 'Escape': closeFlower(); break; default: handled = false; } if (handled) { event.preventDefault(); refresh(); } });
 
-  function syncPersonalControls() { const present = all.some((item) => item.id === 'personal-demo'); removeButton.hidden = !present; plantToggle.childNodes[0].textContent = present ? 'Cambia il mio fiore locale ' : 'Crea un fiore locale '; }
+  function syncPersonalControls() { const present = all.some((item) => item.id === 'personal-demo'); removeButton.hidden = !present && !removalPending; removeButton.textContent = present ? 'Rimuovi il mio fiore' : 'Riprova a cancellare i dati locali'; plantToggle.childNodes[0].textContent = present ? 'Cambia il mio fiore locale ' : 'Crea un fiore locale '; }
   syncPersonalControls();
   plantToggle.addEventListener('click', () => { const expanded = planter.hidden; planter.hidden = !expanded; plantToggle.setAttribute('aria-expanded', String(expanded)); if (expanded) planter.querySelector('input').focus(); });
   planter.addEventListener('submit', (event) => {
@@ -158,19 +158,21 @@ async function initGarden(c) {
     const flower = normalizeLocalFlower({ id: 'personal-demo', version: 1, name, palette, shape, seed, petals: 8 + seed % 3, x: 425 + (seed % 5) * 103, y: 650 + (seed % 4) * 38, radius: 52 });
     if (!flower) { message.textContent = 'Controlla nome, forma e colore del fiore.'; return; }
     all = all.filter((item) => item.id !== 'personal-demo'); all.push(flower); personalDemo = flower; forceVisibleId = flower.id;
-    try { localStorage.setItem(LOCAL_FLOWER_KEY, JSON.stringify(flower)); storageAvailable = true; } catch { storageAvailable = false; }
+    try { localStorage.setItem(LOCAL_FLOWER_KEY, JSON.stringify(flower)); storageAvailable = true; removalPending = false; } catch { storageAvailable = false; }
     applyFilters(); syncPersonalControls(); fit(); focusFlower(flower); message.textContent = storageAvailable ? 'Il fiore è sbocciato e resta solo su questo dispositivo.' : 'Il fiore è visibile ora, ma il browser non consente di conservarlo.';
     planter.hidden = true; plantToggle.setAttribute('aria-expanded', 'false'); c.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
   });
   removeButton.addEventListener('click', () => {
-    try { localStorage.removeItem(LOCAL_FLOWER_KEY); }
+    try { localStorage.removeItem(LOCAL_FLOWER_KEY); removalPending = false; }
     catch {
       storageAvailable = false;
-      message.textContent = 'Il browser non consente di cancellare il fiore salvato. Non è stato rimosso: puoi riprovare o cancellare i dati di questo sito dalle impostazioni del browser.';
-      return;
+      removalPending = true;
     }
     all = all.filter((item) => item.id !== 'personal-demo'); personalDemo = null; forceVisibleId = '';
-    closeFlower(); applyFilters(); syncPersonalControls(); message.textContent = 'Il fiore locale è stato rimosso da questo dispositivo.';
+    closeFlower(); applyFilters(); syncPersonalControls();
+    message.textContent = removalPending
+      ? 'Il fiore è stato tolto da questa sessione. Il browser non consente di cancellare eventuali dati già salvati: potrebbero ricomparire al prossimo accesso. Riprova oppure cancella i dati di questo sito dalle impostazioni del browser.'
+      : 'Il fiore locale è stato rimosso da questo dispositivo.';
   });
 
   // Initialize the first frame only after visibility and event state are ready.
