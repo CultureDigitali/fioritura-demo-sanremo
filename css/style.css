@@ -31,3 +31,22 @@
 .closing-riviera .section-kicker.light{color:var(--ivory)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media(max-width:620px){.garden-canvas{touch-action:none}}
+
+
+/* FIORITURA LIVE: spettacolo e partecipazione, anteprima indipendente */
+.live-showcase{background:var(--sky);padding:clamp(4rem,8vw,8rem) clamp(1.4rem,6.5vw,6.5rem);border-bottom:1px solid var(--line)}
+.live-showcase-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,5vw,5rem);max-width:1460px;margin:0 auto 2.7rem;align-items:center}
+.live-showcase h2{font-size:clamp(2.6rem,5.3vw,6rem);line-height:.96;letter-spacing:-.065em;margin:0}
+.live-showcase h2 em{font-family:var(--serif);font-weight:400;color:var(--coral)}
+.live-showcase-head p:not(.section-kicker){font-size:clamp(.98rem,1.4vw,1.18rem);max-width:42rem;margin-bottom:1rem}
+.live-showcase-grid{max-width:1460px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid rgba(18,61,90,.22)}
+.live-showcase-grid article{padding:clamp(1.35rem,2.65vw,2.8rem);border-right:1px solid rgba(18,61,90,.22);background:rgba(255,249,238,.5)}
+.live-showcase-grid article:last-child{border-right:0}
+.live-showcase-grid article>span{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:850;color:var(--palm)}
+.live-showcase-grid h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,2.9vw,2.7rem);letter-spacing:-.04em;line-height:1.1;margin:1.6rem 0 1rem}
+.live-showcase-grid p{margin:0;color:var(--ink)}
+.live-showcase-actions{max-width:1460px;margin:1.8rem auto 0;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.live-showcase-actions p{max-width:55rem;font-size:.91rem;margin:0}
+.live-showcase-actions .button-coral{white-space:normal;text-align:center;flex-shrink:0}
+@media(max-width:1000px){.live-showcase-head{grid-template-columns:1fr;gap:1rem}.live-showcase-grid{grid-template-columns:1fr}.live-showcase-grid article{border-right:0;border-bottom:1px solid rgba(18,61,90,.22)}.live-showcase-grid article:last-child{border-bottom:0}.live-showcase-actions{align-items:flex-start}}
+@media(max-width:600px){.live-showcase{padding:3.9rem 1.25rem}.live-showcase h2{font-size:clamp(2.7rem,10vw,4.1rem)}.live-showcase-actions .button-coral{width:100%}}
