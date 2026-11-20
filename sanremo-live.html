@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123d5a">
+<title>Sanremo Live — Eventi, tradizioni e cultura | FIORITURA</title>
+<meta name="description" content="Scopri gli eventi di Sanremo: agenda annuale verificata con fonti comunali, cultura, tradizioni, musica, spettacoli e appuntamenti della Riviera dei Fiori.">
+<meta property="og:type" content="website"><meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Sanremo Live — La città da vivere | FIORITURA">
+<meta property="og:description" content="Sanremo tutto l'anno: gli appuntamenti confermati, le ricorrenze e le storie culturali della città dei fiori.">
+<meta property="og:url" content="https://culturedigitali.github.io/fioritura-demo-sanremo/sanremo-live.html">
+<meta property="og:image" content="https://culturedigitali.github.io/fioritura-demo-sanremo/assets/pavilion.webp">
+<link rel="canonical" href="https://culturedigitali.github.io/fioritura-demo-sanremo/sanremo-live.html">
+<link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./css/style.css"><link rel="stylesheet" href="./css/territory.css">
+<script type="module" src="./js/sanremo-events.js"></script>
+</head>
+<body class="territory-body">
+<a class="skip-link" href="#contenuto">Vai al contenuto</a>
+<div class="proposal-strip"><span>FIORITURA / SANREMO LIVE</span> Guida editoriale indipendente · Non è il portale ufficiale del Comune.</div>
+<header class="site-header territory-site-header">
+  <a class="brand" href="./" aria-label="FIORITURA, torna alla homepage"><img src="./assets/mark.svg" alt="" width="34" height="34"><span>fioritura<span class="brand-dot">.</span></span></a>
+  <nav class="desktop-links" aria-label="Navigazione principale"><a href="./">FIORITURA</a><a href="./spettacolo.html">Lo spettacolo</a><a href="./sanremo-live.html" aria-current="page">Sanremo Live</a><a href="./sanremo-scoprire.html">Da scoprire</a><a href="./esperienza.html">L'esperienza</a></nav>
+  <a class="pill-link nav-garden" href="./giardino.html">Giardino 2D ↗</a>
+  <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Navigazione mobile"><a href="./">Il progetto</a><a href="./spettacolo.html">Lo spettacolo</a><a href="./sanremo-live.html" aria-current="page">Sanremo Live</a><a href="./sanremo-scoprire.html">Sanremo da scoprire</a><a href="./esperienza.html">L'esperienza</a><a href="./giardino.html">Giardino 2D</a></nav></details>
+</header>
+<main id="contenuto">
+<section class="territory-hero territory-hero-live">
+  <div class="territory-hero-copy"><p class="section-kicker">01 / SANREMO LIVE</p><h1>Una città.<br>Milioni di <em>storie.</em></h1><p>Non solo una settimana, non soltanto il Festival. Sanremo vive di concerti, tradizioni, fiori, incontri e nuove occasioni per ritrovarsi. Questa agenda raccoglie gli appuntamenti verificati e invita a scoprire la città tutto l'anno.</p><div class="territory-hero-actions"><a class="button-coral" href="#agenda">Esplora l'agenda ↗</a><a class="text-link" href="./sanremo-scoprire.html">Scopri il territorio ↗</a></div><span class="territory-hero-note" id="todayLabel">Agenda culturale della Riviera dei Fiori</span></div>
+  <figure class="territory-hero-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sanremo_-_View_from_Madonna_della_Costa.jpg?width=1280" alt="Panorama fotografico di Sanremo visto dalla Madonna della Costa" width="1280" height="850" fetchpriority="high"><figcaption>Foto: Benjamin Smith / Wikimedia Commons · <a href="https://commons.wikimedia.org/wiki/File:Sanremo_-_View_from_Madonna_della_Costa.jpg" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></figcaption></figure>
+</section>
+<section class="territory-intro-band" aria-labelledby="live-intro">
+ <span class="section-kicker">TUTTO L'ANNO</span><div><h2 id="live-intro">Ogni mese,<br><em>qualcosa da vivere.</em></h2><p>Dalle rassegne musicali alle feste di quartiere, dagli incontri culturali alla cucina ligure: l'agenda distingue le date pubblicate dalle ricorrenze storiche che attendono ancora un programma ufficiale.</p></div>
+</section>
+<section class="featured-events territory-section" aria-labelledby="upcoming-title">
+ <div class="territory-section-heading"><div><p class="section-kicker">IN EVIDENZA</p><h2 id="upcoming-title">I prossimi <em>appuntamenti.</em></h2></div><a class="text-link" href="https://www.comune.sanremo.im.it/it/eventi" rel="noopener noreferrer" target="_blank">Agenda del Comune ↗</a></div>
+ <div class="event-highlights" id="eventHighlights" aria-live="polite"><p>Caricamento degli appuntamenti verificati…</p></div>
+</section>
+<section class="territory-section agenda-section" id="agenda" aria-labelledby="agenda-title">
+ <div class="territory-section-heading"><div><p class="section-kicker">AGENDA UFFICIALMENTE VERIFICATA</p><h2 id="agenda-title">Il calendario<br><em>della città.</em></h2></div><div class="source-note"><strong>Le date contano.</strong><p id="lastChecked">Informazioni da fonti comunali verificate.</p></div></div>
+ <div class="territory-controls" aria-label="Filtri eventi">
+  <div class="segmented" role="group" aria-label="Periodo"><button type="button" data-period="upcoming" class="active" aria-pressed="true">Prossimi eventi</button><button type="button" data-period="archive" aria-pressed="false">Archivio</button><button type="button" data-period="all" aria-pressed="false">Tutti</button></div>
+  <label>Categoria<select id="eventCategory"><option value="all">Tutte le categorie</option><option value="musica">Musica</option><option value="teatro">Teatro e spettacoli</option><option value="cultura">Cultura e visite</option><option value="gusto">Enogastronomia</option><option value="tradizioni">Tradizioni</option><option value="sport">Sport</option></select></label>
+  <label>Anno<select id="eventYear"><option value="">Tutti gli anni</option></select></label>
+  <label class="event-query">Cerca<input type="search" id="eventSearch" placeholder="Titolo, luogo o parola chiave…" autocomplete="off"></label>
+ </div>
+ <div class="year-months"><p class="filter-caption">Sfoglia i mesi dell'anno selezionato</p><div id="monthGrid" class="month-grid" role="group" aria-label="Mese dell'anno"></div></div>
+ <div class="event-results-header"><p id="eventsCount" aria-live="polite">Caricamento agenda…</p><p id="staleWarning" hidden class="stale-warning">Attenzione: il dataset non è aggiornato da oltre 14 giorni. Verifica sempre date e modalità sulla fonte originale.</p></div>
+ <div class="event-list" id="eventList" aria-live="polite"></div>
+ <p class="fine-print">Le fotografie delle schede rappresentano scorci del territorio, non locandine degli eventi. Ogni appuntamento ha una fonte originale e una data di verifica. Gli eventi senza informazioni affidabili non sono presentati come confermati.</p>
+</section>
+<section class="traditions-section territory-section" aria-labelledby="traditions-title">
+ <div class="territory-section-heading"><div><p class="section-kicker">TRADIZIONI CHE TORNANO</p><h2 id="traditions-title">La memoria<br><em>fa calendario.</em></h2></div><p>Queste sono <strong>ricorrenze e manifestazioni storiche</strong>, non annunci delle prossime edizioni. Date, programma e organizzatori vanno verificati di anno in anno.</p></div>
+ <div class="traditions-grid">
+ <article><span>OTTOBRE · TRADIZIONE</span><h3>San Romolo</h3><p>Il santo patrono e l'Ottobre Sanremasco: celebrazioni civiche e religiose che raccontano un legame profondo con la città.</p><a href="https://comune.sanremo.im.it/it/eventi/2519442" rel="noopener noreferrer" target="_blank">Edizione 2026, fonte comunale ↗</a></article>
+ <article><span>FLORICOLTURA</span><h3>Corso fiorito e tradizione dei fiori</h3><p>Allestimenti e creatività floreale sono parte dell'identità sanremese. Il programma di ogni futura edizione richiede comunicazione ufficiale.</p><a href="https://rivieradeifiori.travel/sanremo/" rel="noopener noreferrer" target="_blank">Tradizioni della Riviera ↗</a></article>
+ <article><span>MUSICA E CULTURA</span><h3>Una città di musica</h3><p>Il Festival della Canzone, l'Orchestra Sinfonica e tante realtà artistiche accendono teatri, piazze e palcoscenici nel corso dell'anno.</p><a href="https://www.comune.sanremo.im.it/it/eventi" rel="noopener noreferrer" target="_blank">Verifica i programmi ↗</a></article>
+ </div>
+</section>
+<section class="territory-end"><div><p class="section-kicker light">UN ALTRO MODO DI FIORIRE</p><h2>Vivi Sanremo.<br><em>Scopri cosa la rende unica.</em></h2><p>L'agenda è il punto di partenza: il mare, i giardini e le strade sono il resto del viaggio.</p></div><a class="button-ivory" href="./sanremo-scoprire.html">Sanremo da scoprire ↗</a></section>
+</main>
+<footer class="site-footer"><div class="footer-bottom"><span>FIORITURA · Guida editoriale indipendente di Culture Digitali Srl</span><a href="./sanremo-scoprire.html">Da scoprire</a><a href="./privacy.html">Privacy e trasparenza</a><a href="./">Torna al progetto</a></div></footer>
+</body>
+</html>
