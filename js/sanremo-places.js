@@ -13,7 +13,9 @@ function valid(p){
  if(!Number.isFinite(p.lat)||!Number.isFinite(p.lon)||p.lat<43.7||p.lat>43.95||p.lon<7.6||p.lon>8)return null;
  const img=safe(p.image,imageHosts),source=safe(p.photoPage,['commons.wikimedia.org']);
  if(!img||!source||!p.author||!p.license||!safe(p.licenseUrl,['creativecommons.org']))return null;
- return {...p,image:img,photoPage:source,site:safe(p.url,['www.italia.it','rivieradeifiori.travel'])};
+ return {...p,image:img,photoPage:source,
+    site:safe(p.url,['www.italia.it','rivieradeifiori.travel','www.comune.sanremo.im.it','comune.sanremo.im.it']),
+    coordinateSource:safe(p.coordinateSourceUrl,['www.navily.com','cdn.distanzechilometriche.net'])};
 }
 function mapLink(p){
  return 'https://www.openstreetmap.org/?mlat='+p.lat.toFixed(6)+'&mlon='+p.lon.toFixed(6)+'#map=16/'+p.lat.toFixed(6)+'/'+p.lon.toFixed(6);
@@ -27,7 +29,7 @@ function updateMap(){
  const p=places.find(p=>p.id===selected);
  if(!p)return;
  $('mapSpot').textContent=p.name;
- $('mapDescription').textContent=p.subtitle;
+ $('mapDescription').textContent=p.subtitle+(p.coordinateNote?' · '+p.coordinateNote:'');
  $('mapExternal').href=mapLink(p);
  if(loadedMap){$('mapFrame').src=embed(p);$('mapFrame').title='Mappa OpenStreetMap: '+p.name}
  document.querySelectorAll('[data-place]').forEach(b=>{const on=b.dataset.place===p.id;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
@@ -35,7 +37,7 @@ function updateMap(){
 function placeCard(p){
  const article=el('article','place-card');
  const figure=el('figure','place-photo');
- const img=el('img');img.src=p.image;img.alt='Fotografia reale: '+p.name;img.loading='lazy';img.decoding='async';img.width=960;img.height=700;
+ const img=el('img');img.src=p.image;img.alt=p.imageAlt||'Fotografia reale del territorio di Sanremo: '+p.name;img.loading='lazy';img.decoding='async';img.width=960;img.height=700;
  const figcap=el('figcaption','','Foto: '+p.author+' · '+p.license);
  figure.append(img,figcap);
  const body=el('div','place-card-body');
@@ -46,8 +48,10 @@ function placeCard(p){
  const curiosity=el('p','place-curiosity','Lo sapevi? '+p.curiosity);
  const footer=el('div','place-links');
  const choice=el('button','map-pick','Mostra sulla mappa ↗');choice.type='button';choice.dataset.place=p.id;choice.setAttribute('aria-pressed',String(selected===p.id));choice.addEventListener('click',()=>{selected=p.id;updateMap();$('territoryMap').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'})});
- const credit=el('a','','Foto e licenza ↗');credit.href=p.photoPage;credit.target='_blank';credit.rel='noopener noreferrer';
- put(footer,choice,credit);
+ const credit=el('a','','Foto originale ↗');credit.href=p.photoPage;credit.target='_blank';credit.rel='noopener noreferrer';
+ const license=el('a','','Licenza '+p.license+' ↗');license.href=p.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';
+ put(footer,choice,credit,license);
+ if(p.coordinateSource){const locSource=el('a','','Fonte posizione ↗');locSource.href=p.coordinateSource;locSource.target='_blank';locSource.rel='noopener noreferrer';footer.append(locSource)}
  if(p.site){const source=el('a','','Approfondisci ↗');source.href=p.site;source.target='_blank';source.rel='noopener noreferrer';footer.append(source)}
  put(body,tag,title,subtitle,desc,curiosity,footer);
  return put(article,figure,body);
