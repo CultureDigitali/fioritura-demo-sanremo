@@ -144,3 +144,9 @@
 .territory-privacy-note h2{font-size:clamp(1.8rem,3vw,2.7rem)}
 .territory-teaser-card small{display:block;margin-top:1.3rem;font-size:.67rem;line-height:1.5;opacity:.86}
 @media(max-width:800px){.garden-territory-bridge{grid-template-columns:1fr}}
+
+
+/* Clickable event image attribution: visible author, original Commons file, license. */
+.event-card .image-credit{display:block;line-height:1.5;color:rgba(23,52,72,.88);font-size:.73rem}
+.event-card .image-credit a{color:var(--coral-ink);text-decoration:underline;text-underline-offset:.2em}
+.event-card .image-credit a:focus-visible,.place-links a:focus-visible{outline:3px solid var(--coral-action);outline-offset:3px}
