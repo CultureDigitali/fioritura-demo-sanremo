@@ -27,7 +27,17 @@ function card(e){
   const source=node('a','event-source','Scheda ufficiale ↗');source.href=e.sourceUrl;source.target='_blank';source.rel='noopener noreferrer';
   const sourceDate=node('small','','Verificato il '+dayLabel(e.verifiedOn));append(footer,source,sourceDate);
   append(content,top,title,date,place,desc,footer);
-  if(e.imageCredit)append(content,node('small','image-credit','Foto di contesto · '+e.imageCredit));
+  if(e.photo&&e.photoPage&&e.licenseUrl){
+    const credit=node('small','image-credit');
+    append(credit,document.createTextNode('Foto di contesto · '+e.imageCredit+' · '));
+    const original=node('a','','File originale ↗');
+    original.href=e.photoPage;original.target='_blank';original.rel='noopener noreferrer';
+    const license=node('a','','Licenza CC BY-SA ↗');
+    license.href=e.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';
+    append(credit,original,document.createTextNode(' · '),license);
+    if(e.photoModified)append(credit,document.createTextNode(' · '+e.photoModified));
+    content.append(credit);
+  }
   return append(a,picture,content);
 }
 function empty(message){
