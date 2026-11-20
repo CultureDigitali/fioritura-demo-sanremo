@@ -35,16 +35,19 @@
       "description": "A pochi passi dal centro, il Porto Vecchio custodisce la vocazione marinara di Sanremo e offre scorci su barche, passeggiate e paesaggio costiero.",
       "curiosity": "Le attività del porto hanno sostenuto per secoli commerci e collegamenti della città con il Mediterraneo.",
       "hint": "Passeggiata vicino al centro",
-      "lat": 43.81574,
-      "lon": 7.7846,
+      "lat": 43.8155,
+      "lon": 7.780833,
       "photo": "Sanremo - View from Madonna della Costa.jpg",
       "author": "Benjamin Smith",
       "license": "CC BY-SA 4.0",
-      "url": "https://www.comune.sanremo.im.it/it/vivere/759055",
+      "url": "https://www.comune.sanremo.im.it/it/vivere/759067",
       "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Sanremo%20-%20View%20from%20Madonna%20della%20Costa.jpg?width=960",
       "photoPage": "https://commons.wikimedia.org/wiki/File:Sanremo_-_View_from_Madonna_della_Costa.jpg",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "modified": "Ridimensionamento automatico del server Wikimedia, nessun ritocco editoriale"
+      "modified": "Ridimensionamento automatico del server Wikimedia, nessun ritocco editoriale",
+      "coordinateNote": "Punto di riferimento indicativo per il porto pubblico storico; non è un accesso nautico.",
+      "coordinateSourceUrl": "https://www.navily.com/it/port/sanremo-porto-vecchio/2773",
+      "imageAlt": "Panorama reale di Sanremo dalla Madonna della Costa, immagine di contesto cittadino"
     },
     {
       "id": "lungomare",
@@ -55,8 +58,8 @@
       "description": "Un fronte mare cittadino per osservare la costa, sostare e scoprire le spiagge di Sanremo. Un punto di partenza per il paesaggio marino della Riviera.",
       "curiosity": "La passeggiata è censita tra i luoghi da vivere nel portale del Comune di Sanremo.",
       "hint": "Spiagge e scorci cittadini",
-      "lat": 43.8137,
-      "lon": 7.7732,
+      "lat": 43.8139,
+      "lon": 7.7754,
       "photo": "Sanremo - Spiaggia (3).jpg",
       "author": "roberto franceschini",
       "license": "CC BY-SA 2.0",
@@ -64,7 +67,10 @@
       "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Sanremo%20-%20Spiaggia%20(3).jpg?width=960",
       "photoPage": "https://commons.wikimedia.org/wiki/File:Sanremo_-_Spiaggia_(3).jpg",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-      "modified": "Ridimensionamento automatico del server Wikimedia, nessun ritocco editoriale"
+      "modified": "Ridimensionamento automatico del server Wikimedia, nessun ritocco editoriale",
+      "coordinateNote": "Punto indicativo della passeggiata: il lungomare è un percorso esteso, non un singolo accesso.",
+      "coordinateSourceUrl": "https://cdn.distanzechilometriche.net/mappa/sanremo/lungomare-italo-calvino/",
+      "imageAlt": "Spiaggia e litorale di Sanremo, fotografia di contesto del mare"
     },
     {
       "id": "villa-ormond",
