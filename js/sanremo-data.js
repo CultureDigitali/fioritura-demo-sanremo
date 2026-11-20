@@ -5,6 +5,8 @@ export const CATEGORIES = Object.freeze({
 const DATE=/^\d{4}-\d{2}-\d{2}$/;
 const HOSTS=new Set(['www.comune.sanremo.im.it','comune.sanremo.im.it']);
 const IMAGE_HOSTS=new Set(['commons.wikimedia.org','upload.wikimedia.org']);
+const COMMONS_PAGES=new Set(['commons.wikimedia.org']);
+const LICENSE_HOSTS=new Set(['creativecommons.org']);
 export function safeUrl(input,hosts=HOSTS){
   try{const u=new URL(input);return u.protocol==='https:'&&hosts.has(u.hostname)?u.href:null}catch{return null}
 }
@@ -15,7 +17,21 @@ export function validateEvent(raw){
   if(!DATE.test(start||'')||!DATE.test(end||'')||Number.isNaN(Date.parse(start))||Number.isNaN(Date.parse(end))||end<start)return null;
   if(!location||!description||String(description).length>700||!safeUrl(sourceUrl))return null;
   if(raw.status!=='confermato'||!raw.verifiedOn||!DATE.test(raw.verifiedOn))return null;
-  return {id,title:String(title),category,start,end,location:String(location),description:String(description),time:String(raw.time||''),sourceUrl:safeUrl(sourceUrl),photo:safeUrl(raw.photo,IMAGE_HOSTS),imageCredit:String(raw.imageCredit||''),publisher:'Comune di Sanremo',verifiedOn:raw.verifiedOn,endDateTime:raw.endDateTime||null};
+  const imageUrl=safeUrl(raw.photo,IMAGE_HOSTS);
+  const filePage=safeUrl(raw.photoPage,COMMONS_PAGES);
+  const licenseUrl=safeUrl(raw.licenseUrl,LICENSE_HOSTS);
+  const validFile=filePage&&new URL(filePage).pathname.startsWith('/wiki/File:');
+  const validLicense=licenseUrl&&/^\/licenses\/by-sa\/(?:2|3|4)\.0\/?$/.test(new URL(licenseUrl).pathname);
+  // Fail closed on incomplete photo attribution: keep the verified event, hide the photo.
+  const publishPhoto=Boolean(imageUrl&&validFile&&validLicense
+    &&typeof raw.imageCredit==='string'&&raw.imageCredit.includes('CC BY-SA'));
+  return {id,title:String(title),category,start,end,location:String(location),description:String(description),time:String(raw.time||''),sourceUrl:safeUrl(sourceUrl),
+    photo:publishPhoto?imageUrl:null,
+    photoPage:publishPhoto?filePage:null,
+    licenseUrl:publishPhoto?licenseUrl:null,
+    imageCredit:publishPhoto?raw.imageCredit:'',
+    photoModified:publishPhoto?String(raw.photoModified||''):'',
+    publisher:'Comune di Sanremo',verifiedOn:raw.verifiedOn,endDateTime:raw.endDateTime||null};
 }
 export function cleanEvents(rows){
   const map=new Map();
